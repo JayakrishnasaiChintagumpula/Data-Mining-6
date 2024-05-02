@@ -4,23 +4,7 @@ import matplotlib.pyplot as plt
 from numpy.typing import NDArray
 from sklearn.metrics import confusion_matrix
 
-# ----------------------------------------------------------------------
-
-def confusion_matrix(true_labels, predicted_labels):
-    # Extract the unique classes
-    classes = np.unique(np.concatenate((true_labels, predicted_labels)))
-    # Initialize the confusion matrix with zeros
-    conf_matrix = np.zeros((len(classes), len(classes)), dtype=int)
-
-    # Map each class to an index
-    class_index = {cls: idx for idx, cls in enumerate(classes)}
-
-    # Populate the confusion matrix
-    for true, pred in zip(true_labels, predicted_labels):
-        conf_matrix[class_index[true]][class_index[pred]] += 1
-
-    return conf_matrix
-    
+# ----------------------------------------------------------------------  
 def compute_SSE(data, labels):
     """
     Calculate the sum of squared errors (SSE) for a clustering.
@@ -39,6 +23,21 @@ def compute_SSE(data, labels):
         cluster_center = np.mean(cluster_points, axis=0)
         sse += np.sum((cluster_points - cluster_center) ** 2)
     return sse
+
+def confusion_matrix(true_labels, predicted_labels):
+    # Extract the unique categories
+    categories = np.unique(np.concatenate((true_labels, predicted_labels)))
+    # Initialize the confusion matrix with zeros
+    matrix = np.zeros((len(categories), len(categories)), dtype=int)
+
+    # Map each category to an index
+    category_index = {category: index for index, category in enumerate(categories)}
+
+    # Populate the confusion matrix
+    for actual, predicted in zip(true_labels, predicted_labels):
+        matrix[category_index[actual]][category_index[predicted]] += 1
+
+    return matrix
     
 
 
